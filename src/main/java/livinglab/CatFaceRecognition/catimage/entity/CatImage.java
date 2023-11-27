@@ -1,6 +1,7 @@
 package livinglab.CatFaceRecognition.catimage.entity;
 
 import jakarta.persistence.*;
+import livinglab.CatFaceRecognition.catpage.entity.CatPage;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CatImage {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "catimage_id")
@@ -27,13 +27,13 @@ public class CatImage {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "catpage_id")
-    private  CatImage catImage;
+    private  CatPage catPage;
 
     @Builder
-    public CatImage(Long id, String originImageName, String imageName, String imagePath) {
-        this.id = id;
+    public CatImage( String originImageName, String imageName, String imagePath, CatPage catPage) {
         this.originImageName = originImageName;
         this.imageName = imageName;
         this.imagePath = imagePath;
+        this.catPage = catPage;
     }
 }
