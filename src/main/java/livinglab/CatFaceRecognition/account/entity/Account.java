@@ -2,6 +2,7 @@ package livinglab.CatFaceRecognition.account.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import livinglab.CatFaceRecognition.base.BaseEntity;
 import livinglab.CatFaceRecognition.cat.entity.Cat;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,12 +15,12 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "user")
-public class Account {
+@Table(name = "account")
+public class Account extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", unique = true)
+    @Column(name = "account_id", unique = true)
     private Long id;
 
     private String password;
@@ -31,7 +32,7 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cat> cats= new ArrayList<>();
 
 
