@@ -1,5 +1,6 @@
 package livinglab.CatFaceRecognition.cat.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import livinglab.CatFaceRecognition.base.BaseEntity;
 import livinglab.CatFaceRecognition.catpage.entity.CatPage;
@@ -27,18 +28,19 @@ public class Cat extends BaseEntity {
     private Sex sex;
     private boolean neuter;
     private String detectedPlace;
+
+    @Column(nullable = true)
     private Long expectedAge;
 
     @ManyToOne(targetEntity = Account.class,fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "account_id")
     private Account account;
 
     @OneToMany(cascade = CascadeType.ALL ,mappedBy = "cat", orphanRemoval = true)
     private List<CatPage> catPages = new ArrayList<>();
 
     @Builder
-    public Cat(Long id, String name, Sex sex, boolean neuter, String detectedPlace, Long expectedAge, Account account, List<CatPage> catPages) {
-        this.id = id;
+    public Cat(String name, Sex sex, boolean neuter, String detectedPlace, Long expectedAge, Account account, List<CatPage> catPages) {
         this.name = name;
         this.sex = sex;
         this.neuter = neuter;
